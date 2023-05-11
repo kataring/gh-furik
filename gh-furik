@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+set -e
+
+echo "# Issue"
+echo "## CloseしたIssue"
+echo
+PAGER=cat gh issue list --assignee @me --search "is:closed closed:>=$(date +%Y-%m-%d)" --json 'title,url' --jq '.[]|"  - [" + .title + "](" + .url + ")"' $@
+echo "## 取り組んだIssue"
+echo
+PAGER=cat gh issue list --assignee @me --search "updated:>=$(date +%Y-%m-%d)" --json 'title,url' --jq '.[]|"  - [" + .title + "](" + .url + ")"' $@
+echo
+echo "# PR"
+echo
+PAGER=cat gh pr list --assignee @me --search "updated:>=$(date +%Y-%m-%d)" --json 'title,url' --jq '.[]|"  - [" + .title + "](" + .url + ")"' $@
+echo
+echo "## MargeしたPR"
+echo
+PAGER=cat gh pr list --assignee @me --search "is:merged closed:>=$(date +%Y-%m-%d)" --json 'title,url' --jq '.[]|"  - [" + .title + "](" + .url + ")"' $@
+echo
+echo "## review-requested"
+echo
+PAGER=cat gh pr list --search "review-requested:@me" --json 'title,url' --jq '.[]|"  - [" + .title + "](" + .url + ")"' $@
+echo
