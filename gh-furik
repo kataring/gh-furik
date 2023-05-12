@@ -1,25 +1,35 @@
 #!/usr/bin/env bash
 set -e
 
+target_date=$(date +%Y-%m-%d)
+case "$1" in
+week)
+  shift
+  current_weekday=$(date +%u)
+  days_to_subtract=$((current_weekday - 1))
+  target_date=$(date -v -${days_to_subtract}d +%Y-%m-%d)
+  ;;
+esac
+
 echo "# Issue"
 echo "## closed"
 echo
-PAGER=cat gh issue list --assignee @me --search "is:closed closed:>=$(date +%Y-%m-%d)" --json 'title,url' --jq '.[]|"  - [" + .title + "](" + .url + ")"' $@
+PAGER=cat gh issue list --assignee @me --search "is:closed closed:>=${target_date}" --json 'title,url' --jq '.[]|"  - [" + .title + "](" + .url + ")"'
 echo
 echo "## WIP"
 echo
-PAGER=cat gh issue list --assignee @me --search "updated:>=$(date +%Y-%m-%d)" --json 'title,url' --jq '.[]|"  - [" + .title + "](" + .url + ")"' $@
+PAGER=cat gh issue list --assignee @me --search "updated:>=${target_date}" --json 'title,url' --jq '.[]|"  - [" + .title + "](" + .url + ")"'
 echo
 echo "# PR"
 echo "## WIP"
 echo
-PAGER=cat gh pr list --assignee @me --search "updated:>=$(date +%Y-%m-%d)" --json 'title,url' --jq '.[]|"  - [" + .title + "](" + .url + ")"' $@
+PAGER=cat gh pr list --assignee @me --search "updated:>=${target_date}" --json 'title,url' --jq '.[]|"  - [" + .title + "](" + .url + ")"'
 echo
 echo "## merged"
 echo
-PAGER=cat gh pr list --assignee @me --search "is:merged closed:>=$(date +%Y-%m-%d)" --json 'title,url' --jq '.[]|"  - [" + .title + "](" + .url + ")"' $@
+PAGER=cat gh pr list --assignee @me --search "is:merged closed:>=${target_date}" --json 'title,url' --jq '.[]|"  - [" + .title + "](" + .url + ")"'
 echo
 echo "## review-requested"
 echo
-PAGER=cat gh pr list --search "review-requested:@me" --json 'title,url' --jq '.[]|"  - [" + .title + "](" + .url + ")"' $@
+PAGER=cat gh pr list --search "review-requested:@me" --json 'title,url' --jq '.[]|"  - [" + .title + "](" + .url + ")"'
 echo
