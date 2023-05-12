@@ -8,3 +8,12 @@
 ```
 gh extension install kataring/gh-furik
 ```
+## Usage
+
+```
+gh furik
+```
+
+```
+gh furik --repo foo/bar
+```
