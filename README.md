@@ -10,10 +10,14 @@ gh extension install kataring/gh-furik
 ```
 ## Usage
 
+- daily
+
 ```
 gh furik
 ```
 
+- weekly
+
 ```
-gh furik --repo foo/bar
+gh furik week
 ```
