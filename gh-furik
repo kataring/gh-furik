@@ -2,18 +2,20 @@
 set -e
 
 echo "# Issue"
-echo "## CloseしたIssue"
+echo "## closed"
 echo
 PAGER=cat gh issue list --assignee @me --search "is:closed closed:>=$(date +%Y-%m-%d)" --json 'title,url' --jq '.[]|"  - [" + .title + "](" + .url + ")"' $@
-echo "## 取り組んだIssue"
+echo
+echo "## WIP"
 echo
 PAGER=cat gh issue list --assignee @me --search "updated:>=$(date +%Y-%m-%d)" --json 'title,url' --jq '.[]|"  - [" + .title + "](" + .url + ")"' $@
 echo
 echo "# PR"
+echo "## WIP"
 echo
 PAGER=cat gh pr list --assignee @me --search "updated:>=$(date +%Y-%m-%d)" --json 'title,url' --jq '.[]|"  - [" + .title + "](" + .url + ")"' $@
 echo
-echo "## MargeしたPR"
+echo "## merged"
 echo
 PAGER=cat gh pr list --assignee @me --search "is:merged closed:>=$(date +%Y-%m-%d)" --json 'title,url' --jq '.[]|"  - [" + .title + "](" + .url + ")"' $@
 echo
