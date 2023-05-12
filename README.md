@@ -1,6 +1,7 @@
 # gh-furik
 
-This GitHub CLI extension allows you to look back at your Issue and Pullrequest activity for the day.
+- [GitHub CLI](https://github.com/cli/cli) extension to summary generator for your GitHub activities.
+- Inspired by [pepabo/furik](https://github.com/pepabo/furik)
 
 ## Install
 
