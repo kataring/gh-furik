@@ -16,12 +16,12 @@ echo "## closed"
 echo
 PAGER=cat gh issue list --assignee @me --search "is:closed closed:>=${target_date}" --json 'title,url' --jq '.[]|"  - [" + .title + "](" + .url + ")"'
 echo
-echo "## WIP"
+echo "## wip"
 echo
 PAGER=cat gh issue list --assignee @me --search "updated:>=${target_date}" --json 'title,url' --jq '.[]|"  - [" + .title + "](" + .url + ")"'
 echo
-echo "# PR"
-echo "## WIP"
+echo "# PullRequest"
+echo "## wip"
 echo
 PAGER=cat gh pr list --assignee @me --search "updated:>=${target_date}" --json 'title,url' --jq '.[]|"  - [" + .title + "](" + .url + ")"'
 echo
@@ -29,7 +29,11 @@ echo "## merged"
 echo
 PAGER=cat gh pr list --assignee @me --search "is:merged closed:>=${target_date}" --json 'title,url' --jq '.[]|"  - [" + .title + "](" + .url + ")"'
 echo
-echo "## review-requested"
+echo "## reviewed by me"
+echo
+PAGER=cat gh pr list --search "reviewed-by:@me -author:@me closed:>=${target_date}" --json 'title,url' --jq '.[]|"  - [" + .title + "](" + .url + ")"'
+echo
+echo "## review requested"
 echo
 PAGER=cat gh pr list --search "review-requested:@me" --json 'title,url' --jq '.[]|"  - [" + .title + "](" + .url + ")"'
 echo
